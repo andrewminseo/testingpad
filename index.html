@@ -1,1 +1,511 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/_next/static/media/a34f9d1faa5f3315-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="stylesheet" href="/_next/static/css/fad13d6e16df0620.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/webpack-da7bd31efd1877ed.js"/><script src="/_next/static/chunks/4bd1b696-0278b0a27ab43590.js" async=""></script><script src="/_next/static/chunks/684-ff4c87b58bea253f.js" async=""></script><script src="/_next/static/chunks/main-app-dc6f1da8a79628da.js" async=""></script><script src="/_next/static/chunks/app/layout-2a520ec580dcc05a.js" async=""></script><script src="/_next/static/chunks/869-05d3f9c90909197a.js" async=""></script><script src="/_next/static/chunks/app/page-e32a2d36752f6c6c.js" async=""></script><meta name="next-size-adjust" content=""/><title>UMich Pancake Tracker</title><meta name="description" content="Track pancake availability across University of Michigan dining halls"/><script>document.querySelectorAll('body link[rel="icon"], body link[rel="apple-touch-icon"]').forEach(el => document.head.appendChild(el))</script><script src="/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script></head><body class="__className_d65c78"><script>((e,t,r,n,o,a,i,u)=>{let l=document.documentElement,s=["light","dark"];function c(t){var r;(Array.isArray(e)?e:[e]).forEach(e=>{let r="class"===e,n=r&&a?o.map(e=>a[e]||e):o;r?(l.classList.remove(...n),l.classList.add(a&&a[t]?a[t]:t)):l.setAttribute(e,t)}),r=t,u&&s.includes(r)&&(l.style.colorScheme=r)}if(n)c(n);else try{let e=localStorage.getItem(t)||r,n=i&&"system"===e?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":e;c(n)}catch(e){}})("class","theme","light",null,["light","dark"],null,true,true)</script><div class="flex min-h-screen bg-amber-50"><aside class="w-64 bg-amber-700 text-white p-4 flex flex-col"><h2 class="text-xl font-bold mb-6 text-amber-100">Next 9 Days</h2><div class="space-y-2"><button class="w-full text-left p-3 rounded-md transition-colors bg-amber-500 text-white"><div class="font-medium">Tuesday</div><div class="text-sm opacity-90">04/15</div></button><button class="w-full text-left p-3 rounded-md transition-colors hover:bg-amber-600"><div class="font-medium">Wednesday</div><div class="text-sm opacity-90">04/16</div></button><button class="w-full text-left p-3 rounded-md transition-colors hover:bg-amber-600"><div class="font-medium">Thursday</div><div class="text-sm opacity-90">04/17</div></button><button class="w-full text-left p-3 rounded-md transition-colors hover:bg-amber-600"><div class="font-medium">Friday</div><div class="text-sm opacity-90">04/18</div></button><button class="w-full text-left p-3 rounded-md transition-colors hover:bg-amber-600"><div class="font-medium">Saturday</div><div class="text-sm opacity-90">04/19</div></button><button class="w-full text-left p-3 rounded-md transition-colors hover:bg-amber-600"><div class="font-medium">Sunday</div><div class="text-sm opacity-90">04/20</div></button><button class="w-full text-left p-3 rounded-md transition-colors hover:bg-amber-600"><div class="font-medium">Monday</div><div class="text-sm opacity-90">04/21</div></button><button class="w-full text-left p-3 rounded-md transition-colors hover:bg-amber-600"><div class="font-medium">Tuesday</div><div class="text-sm opacity-90">04/22</div></button><button class="w-full text-left p-3 rounded-md transition-colors hover:bg-amber-600"><div class="font-medium">Wednesday</div><div class="text-sm opacity-90">04/23</div></button></div></aside><main class="flex-1 p-6"><h1 class="text-3xl font-bold text-amber-800 mb-6">Pancake Tracker</h1><div class="flex justify-center items-center h-64"><div class="animate-pulse text-amber-700">Loading pancake data...</div></div></main></div><!--$--><!--/$--><!--$--><!--/$--><script src="/_next/static/chunks/webpack-da7bd31efd1877ed.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[7780,[\"177\",\"static/chunks/app/layout-2a520ec580dcc05a.js\"],\"ThemeProvider\"]\n3:I[7555,[],\"\"]\n4:I[1295,[],\"\"]\n5:I[894,[],\"ClientPageRoot\"]\n6:I[5163,[\"869\",\"static/chunks/869-05d3f9c90909197a.js\",\"974\",\"static/chunks/app/page-e32a2d36752f6c6c.js\"],\"default\"]\n9:I[9665,[],\"MetadataBoundary\"]\nb:I[9665,[],\"OutletBoundary\"]\ne:I[4911,[],\"AsyncMetadataOutlet\"]\n10:I[9665,[],\"ViewportBoundary\"]\n12:I[6614,[],\"\"]\n:HL[\"/_next/static/media/a34f9d1faa5f3315-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/css/fad13d6e16df0620.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"4WpjIYMKx6qiPnVFWc9cI\",\"p\":\"\",\"c\":[\"\",\"\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/fad13d6e16df0620.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[\"$\",\"body\",null,{\"className\":\"__className_d65c78\",\"children\":[\"$\",\"$L2\",null,{\"attribute\":\"class\",\"defaultTheme\":\"light\",\"enableSystem\":true,\"disableTransitionOnChange\":true,\"children\":[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]}]}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[[\"$\",\"$L5\",null,{\"Component\":\"$6\",\"searchParams\":{},\"params\":{},\"promises\":[\"$@7\",\"$@8\"]}],[\"$\",\"$L9\",null,{\"children\":\"$La\"}],null,[\"$\",\"$Lb\",null,{\"children\":[\"$Lc\",\"$Ld\",[\"$\",\"$Le\",null,{\"promise\":\"$@f\"}]]}]]}],{},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$1\",\"__nO0eomKNIuW-QrB6OzE\",{\"children\":[[\"$\",\"$L10\",null,{\"children\":\"$L11\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$12\",\"$undefined\"],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"13:\"$Sreact.suspense\"\n14:I[4911,[],\"AsyncMetadata\"]\n7:{}\n8:{}\na:[\"$\",\"$13\",null,{\"fallback\":null,\"children\":[\"$\",\"$L14\",null,{\"promise\":\"$@15\"}]}]\n"])</script><script>self.__next_f.push([1,"d:null\n"])</script><script>self.__next_f.push([1,"11:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\nc:null\n"])</script><script>self.__next_f.push([1,"15:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"UMich Pancake Tracker\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Track pancake availability across University of Michigan dining halls\"}]],\"error\":null,\"digest\":\"$undefined\"}\nf:{\"metadata\":\"$15:metadata\",\"error\":null,\"digest\":\"$undefined\"}\n"])</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charSet="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>UMich Pancake Tracker</title>
+  <meta name="description" content="Track pancake availability across University of Michigan dining halls"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --syrup-brown: #7D4F2A;
+      --butter-yellow: #F9D342;
+      --light-pancake: #F5E7C9;
+      --pancake-golden: #E6B325;
+      --blueberry: #627DC9;
+      --strawberry: #E84855;
+      --whipped-cream: #FFF8F0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Quicksand', sans-serif;
+    }
+    
+    body {
+      background-color: var(--light-pancake);
+      overflow-x: hidden;
+    }
+    
+    .pancake-stack {
+      position: fixed;
+      right: -150px;
+      bottom: -150px;
+      width: 400px;
+      height: 400px;
+      z-index: -1;
+      opacity: 0.15;
+      transform: rotate(-15deg);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo svg {
+      margin-right: 10px;
+    }
+    
+    .syrup-drip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: var(--syrup-brown);
+      opacity: 0.8;
+      border-radius: 0 0 50% 50%;
+    }
+    
+    .pancake-card {
+      position: relative;
+      border-radius: 12px;
+      padding: 20px;
+      background: var(--whipped-cream);
+      box-shadow: 0 6px 15px rgba(125, 79, 42, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .pancake-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(125, 79, 42, 0.15);
+    }
+    
+    .pancake-card.available {
+      border-top: 5px solid var(--pancake-golden);
+    }
+    
+    .pancake-card.unavailable {
+      border-top: 5px solid var(--strawberry);
+    }
+    
+    .pancake-card.limited {
+      border-top: 5px solid var(--blueberry);
+    }
+    
+    .status-indicator {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    
+    .status-indicator.available {
+      background-color: var(--pancake-golden);
+    }
+    
+    .status-indicator.unavailable {
+      background-color: var(--strawberry);
+    }
+    
+    .status-indicator.limited {
+      background-color: var(--blueberry);
+    }
+    
+    .sidebar {
+      background: var(--syrup-brown);
+      padding: 1.5rem;
+      width: 280px;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      border-right: 4px solid var(--pancake-golden);
+    }
+    
+    .sidebar-title {
+      color: var(--butter-yellow);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    }
+    
+    .date-button {
+      background: transparent;
+      border: none;
+      padding: 12px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      color: var(--whipped-cream);
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .date-button:hover {
+      background: rgba(249, 211, 66, 0.15);
+    }
+    
+    .date-button.active {
+      background: var(--pancake-golden);
+      color: var(--syrup-brown);
+      font-weight: 600;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .page-title {
+      color: var(--syrup-brown);
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .page-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--pancake-golden);
+      border-radius: 2px;
+    }
+    
+    .pancake-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .dining-hall-name {
+      color: var(--syrup-brown);
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    
+    .status-text {
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    
+    .time-info {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+    
+    .stats-section {
+      margin-top: 40px;
+    }
+    
+    .stats-title {
+      color: var(--syrup-brown);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .stats-card {
+      background: var(--whipped-cream);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 6px 15px rgba(125, 79, 42, 0.1);
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 15px;
+    }
+    
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--syrup-brown);
+      margin-bottom: 8px;
+    }
+    
+    .stat-label {
+      color: #6B7280;
+      font-size: 1rem;
+    }
+
+    /* Animation classes */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 0.8s forwards;
+    }
+    
+    .slide-up {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.6s forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Staggered animation delays */
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
+    
+    /* Layout */
+    .flex-container {
+      display: flex;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex-container">
+    <aside class="sidebar">
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="28" fill="#F9D342"/>
+          <circle cx="32" cy="32" r="22" fill="#F5E7C9"/>
+          <circle cx="32" cy="32" r="16" fill="#F9D342" fill-opacity="0.6"/>
+        </svg>
+        <h2 class="sidebar-title">UMich Pancakes</h2>
+      </div>
+      <h3 style="color: #F9D342; margin-bottom: 12px;">Next 9 Days</h3>
+      <div>
+        <button class="date-button active">
+          <div>Tuesday</div>
+          <div style="font-size: 0.8rem; opacity: 0.8;">04/15</div>
+        </button>
+        <button class="date-button">
+          <div>Wednesday</div>
+          <div style="font-size: 0.8rem; opacity: 0.8;">04/16</div>
+        </button>
+        <button class="date-button">
+          <div>Thursday</div>
+          <div style="font-size: 0.8rem; opacity: 0.8;">04/17</div>
+        </button>
+        <button class="date-button">
+          <div>Friday</div>
+          <div style="font-size: 0.8rem; opacity: 0.8;">04/18</div>
+        </button>
+        <button class="date-button">
+          <div>Saturday</div>
+          <div style="font-size: 0.8rem; opacity: 0.8;">04/19</div>
+        </button>
+        <button class="date-button">
+          <div>Sunday</div>
+          <div style="font-size: 0.8rem; opacity: 0.8;">04/20</div>
+        </button>
+        <button class="date-button">
+          <div>Monday</div>
+          <div style="font-size: 0.8rem; opacity: 0.8;">04/21</div>
+        </button>
+        <button class="date-button">
+          <div>Tuesday</div>
+          <div style="font-size: 0.8rem; opacity: 0.8;">04/22</div>
+        </button>
+        <button class="date-button">
+          <div>Wednesday</div>
+          <div style="font-size: 0.8rem; opacity: 0.8;">04/23</div>
+        </button>
+      </div>
+    </aside>
+    
+    <main class="main-content">
+      <h1 class="page-title fade-in">Pancake Tracker</h1>
+      
+      <!-- Pancake background illustration -->
+      <div class="pancake-stack">
+        <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="120" r="60" fill="#F5E7C9" />
+          <circle cx="100" cy="100" r="60" fill="#F5E7C9" />
+          <circle cx="100" cy="80" r="60" fill="#F5E7C9" />
+          <circle cx="100" cy="60" r="60" fill="#F5E7C9" />
+          <path d="M40 50C40 50 60 30 100 30C140 30 160 50 160 50" stroke="#F9D342" stroke-width="8"/>
+          <path d="M40 40C40 40 60 20 100 20C140 20 160 40 160 40" stroke="#7D4F2A" stroke-width="4"/>
+        </svg>
+      </div>
+      
+      <!-- Dining Hall Cards -->
+      <div class="pancake-grid">
+        <div class="pancake-card available slide-up delay-1">
+          <div class="syrup-drip"></div>
+          <h2 class="dining-hall-name">North Quad</h2>
+          <div>
+            <div class="status-text">
+              <span class="status-indicator available"></span>
+              Pancakes available for breakfast
+            </div>
+            <div class="time-info">7:00 AM - 10:30 AM</div>
+          </div>
+        </div>
+        
+        <div class="pancake-card unavailable slide-up delay-2">
+          <div class="syrup-drip"></div>
+          <h2 class="dining-hall-name">South Quad</h2>
+          <div>
+            <div class="status-text">
+              <span class="status-indicator unavailable"></span>
+              No pancakes today
+            </div>
+            <div class="time-info">Check back tomorrow</div>
+          </div>
+        </div>
+        
+        <div class="pancake-card available slide-up delay-3">
+          <div class="syrup-drip"></div>
+          <h2 class="dining-hall-name">East Quad</h2>
+          <div>
+            <div class="status-text">
+              <span class="status-indicator available"></span>
+              Pancakes available for breakfast
+            </div>
+            <div class="time-info">7:30 AM - 10:00 AM</div>
+          </div>
+        </div>
+        
+        <div class="pancake-card limited slide-up delay-4">
+          <div class="syrup-drip"></div>
+          <h2 class="dining-hall-name">West Quad</h2>
+          <div>
+            <div class="status-text">
+              <span class="status-indicator limited"></span>
+              Limited availability - Banana pancakes only
+            </div>
+            <div class="time-info">8:00 AM - 10:00 AM</div>
+          </div>
+        </div>
+        
+        <div class="pancake-card available slide-up delay-5">
+          <div class="syrup-drip"></div>
+          <h2 class="dining-hall-name">Mary Markley</h2>
+          <div>
+            <div class="status-text">
+              <span class="status-indicator available"></span>
+              Pancakes available for breakfast
+            </div>
+            <div class="time-info">7:00 AM - 11:00 AM</div>
+          </div>
+        </div>
+        
+        <div class="pancake-card unavailable slide-up delay-6">
+          <div class="syrup-drip"></div>
+          <h2 class="dining-hall-name">Bursley</h2>
+          <div>
+            <div class="status-text">
+              <span class="status-indicator unavailable"></span>
+              No pancakes today
+            </div>
+            <div class="time-info">Check back tomorrow</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Monthly pancake statistics -->
+      <div class="stats-section fade-in">
+        <h2 class="stats-title">April Pancake Stats</h2>
+        <div class="stats-card">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value">18</div>
+              <div class="stat-label">Days with pancakes this month</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">North Quad</div>
+              <div class="stat-label">Most consistent pancake provider</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">Blueberry</div>
+              <div class="stat-label">Most popular pancake flavor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Date selection functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const dateButtons = document.querySelectorAll('.date-button');
+      
+      dateButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          dateButtons.forEach(btn => {
+            btn.classList.remove('active');
+          });
+          
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          // Get the date text
+          const dateText = this.querySelector('div:nth-child(2)').textContent;
+          document.querySelector('.page-title').textContent = `Pancake Tracker - ${dateText}`;
+          
+          // Animate the cards again when changing dates
+          const cards = document.querySelectorAll('.pancake-card');
+          cards.forEach((card, index) => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+              card.style.opacity = 1;
+              card.style.transform = 'translateY(0)';
+            }, 100 + (index * 100));
+          });
+        });
+      });
+      
+      // Scroll animation
+      const animateOnScroll = function() {
+        const elements = document.querySelectorAll('.slide-up, .fade-in');
+        
+        elements.forEach(element => {
+          const elementTop = element.getBoundingClientRect().top;
+          const elementVisible = 150;
+          
+          if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add('animate');
+          }
+        });
+      };
+      
+      // Initial check for elements in viewport
+      animateOnScroll();
+      
+      // Listen for scroll events
+      window.addEventListener('scroll', animateOnScroll);
+    });
+  </script>
+</body>
+</html>
