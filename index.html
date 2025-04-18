@@ -454,10 +454,238 @@
   </div>
 
   <script>
-    // Date selection functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const dateButtons = document.querySelectorAll('.date-button');
+    // Simulated API endpoint - in a real app, this would be a real API
+    const API_ENDPOINT = 'https://api.umich.edu/dining/pancakes';
+    
+    // Pancake data model
+    class PancakeDataService {
+      constructor() {
+        this.data = null;
+        this.isLoading = true;
+        this.currentDate = '04/15'; // Default to first date
+      }
       
+      // Simulate API fetch with realistic timing
+      async fetchData(date) {
+        this.isLoading = true;
+        this.updateUI();
+        
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Simulated data - this would come from the API in a real app
+        const diningHalls = [
+          {
+            name: 'North Quad',
+            date: date,
+            hasPancakes: date !== '04/19' && date !== '04/22',
+            times: '7:00 AM - 10:30 AM',
+            flavors: ['Plain', 'Blueberry', 'Chocolate Chip']
+          },
+          {
+            name: 'South Quad',
+            date: date,
+            hasPancakes: date === '04/16' || date === '04/18' || date === '04/21',
+            times: '7:30 AM - 10:00 AM',
+            flavors: ['Plain', 'Strawberry']
+          },
+          {
+            name: 'East Quad',
+            date: date,
+            hasPancakes: date !== '04/20',
+            times: '7:30 AM - 10:00 AM',
+            flavors: ['Plain', 'Gluten-Free']
+          },
+          {
+            name: 'West Quad',
+            date: date,
+            hasPancakes: true,
+            limited: date === '04/15' || date === '04/17',
+            times: '8:00 AM - 10:00 AM',
+            flavors: ['Banana', 'Plain']
+          },
+          {
+            name: 'Mary Markley',
+            date: date,
+            hasPancakes: date !== '04/19' && date !== '04/22',
+            times: '7:00 AM - 11:00 AM',
+            flavors: ['Plain', 'Blueberry', 'Strawberry']
+          },
+          {
+            name: 'Bursley',
+            date: date,
+            hasPancakes: date === '04/17' || date === '04/18' || date === '04/20',
+            times: '7:00 AM - 10:00 AM',
+            flavors: ['Plain', 'Vegan']
+          }
+        ];
+        
+        // Monthly stats based on selected date
+        const monthlyStats = {
+          daysWithPancakes: 18,
+          mostConsistent: 'North Quad',
+          popularFlavor: 'Blueberry'
+        };
+        
+        this.data = {
+          diningHalls: diningHalls,
+          stats: monthlyStats,
+          date: date
+        };
+        
+        this.isLoading = false;
+        this.currentDate = date;
+        this.updateUI();
+        
+        return this.data;
+      }
+      
+      // Update the UI based on current state
+      updateUI() {
+        const mainContent = document.querySelector('.main-content');
+        const loadingTemplate = `
+          <div class="loading-container fade-in">
+            <div class="pancake-stack-loading">
+              <svg width="100" height="100" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="120" r="60" fill="#F5E7C9" />
+                <circle cx="100" cy="100" r="60" fill="#F5E7C9" />
+                <circle cx="100" cy="80" r="60" fill="#F5E7C9" />
+                <circle cx="100" cy="60" r="60" fill="#F5E7C9" />
+                <path d="M40 50C40 50 60 30 100 30C140 30 160 50 160 50" stroke="#F9D342" stroke-width="8"/>
+                <path d="M40 40C40 40 60 20 100 20C140 20 160 40 160 40" stroke="#7D4F2A" stroke-width="4"/>
+              </svg>
+            </div>
+            <div class="loading-text">Loading pancake data...</div>
+          </div>
+        `;
+        
+        if (this.isLoading) {
+          // Update the title
+          document.querySelector('.page-title').textContent = 'Pancake Tracker';
+          
+          // Clear existing content and show loading
+          const contentArea = document.querySelector('.pancake-grid');
+          if (contentArea) contentArea.remove();
+          
+          const statsSection = document.querySelector('.stats-section');
+          if (statsSection) statsSection.remove();
+          
+          const existingLoader = document.querySelector('.loading-container');
+          if (!existingLoader) {
+            const loadingEl = document.createElement('div');
+            loadingEl.innerHTML = loadingTemplate;
+            mainContent.appendChild(loadingEl.firstElementChild);
+          }
+          
+          return;
+        }
+        
+        // Remove loader if it exists
+        const loader = document.querySelector('.loading-container');
+        if (loader) loader.remove();
+        
+        // Update the title with date
+        document.querySelector('.page-title').textContent = `Pancake Tracker - ${this.currentDate}`;
+        
+        // Generate dining hall cards
+        let cardsHTML = `
+          <div class="pancake-grid">
+        `;
+        
+        this.data.diningHalls.forEach((hall, index) => {
+          let statusClass = hall.hasPancakes ? 'available' : 'unavailable';
+          if (hall.limited) statusClass = 'limited';
+          
+          let statusText = hall.hasPancakes
+            ? 'Pancakes available for breakfast'
+            : 'No pancakes today';
+            
+          if (hall.limited) statusText = `Limited availability - ${hall.flavors[0]} pancakes only`;
+          
+          let timeInfo = hall.hasPancakes ? hall.times : 'Check back tomorrow';
+          
+          cardsHTML += `
+            <div class="pancake-card ${statusClass} slide-up delay-${index + 1}">
+              <div class="syrup-drip"></div>
+              <h2 class="dining-hall-name">${hall.name}</h2>
+              <div>
+                <div class="status-text">
+                  <span class="status-indicator ${statusClass}"></span>
+                  ${statusText}
+                </div>
+                <div class="time-info">${timeInfo}</div>
+              </div>
+            </div>
+          `;
+        });
+        
+        cardsHTML += '</div>';
+        
+        // Generate stats section
+        const statsHTML = `
+          <div class="stats-section fade-in">
+            <h2 class="stats-title">April Pancake Stats</h2>
+            <div class="stats-card">
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <div class="stat-value">${this.data.stats.daysWithPancakes}</div>
+                  <div class="stat-label">Days with pancakes this month</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">${this.data.stats.mostConsistent}</div>
+                  <div class="stat-label">Most consistent pancake provider</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">${this.data.stats.popularFlavor}</div>
+                  <div class="stat-label">Most popular pancake flavor</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // Check if elements already exist
+        let cardsContainer = document.querySelector('.pancake-grid');
+        if (cardsContainer) {
+          cardsContainer.outerHTML = cardsHTML;
+        } else {
+          const tempEl = document.createElement('div');
+          tempEl.innerHTML = cardsHTML;
+          mainContent.appendChild(tempEl.firstElementChild);
+        }
+        
+        let statsContainer = document.querySelector('.stats-section');
+        if (statsContainer) {
+          statsContainer.outerHTML = statsHTML;
+        } else {
+          const tempEl = document.createElement('div');
+          tempEl.innerHTML = statsHTML;
+          mainContent.appendChild(tempEl.firstElementChild);
+        }
+        
+        // Animate cards
+        const cards = document.querySelectorAll('.pancake-card');
+        cards.forEach((card, index) => {
+          card.style.opacity = 0;
+          card.style.transform = 'translateY(20px)';
+          
+          setTimeout(() => {
+            card.style.opacity = 1;
+            card.style.transform = 'translateY(0)';
+          }, 100 + (index * 100));
+        });
+      }
+    }
+    
+    // Initialize and load data
+    document.addEventListener('DOMContentLoaded', function() {
+      const pancakeService = new PancakeDataService();
+      
+      // Initial data load
+      pancakeService.fetchData('04/15');
+      
+      // Set up date button click handlers
+      const dateButtons = document.querySelectorAll('.date-button');
       dateButtons.forEach(button => {
         button.addEventListener('click', function() {
           // Remove active class from all buttons
@@ -468,21 +696,9 @@
           // Add active class to clicked button
           this.classList.add('active');
           
-          // Get the date text
+          // Get the date text and fetch data for that date
           const dateText = this.querySelector('div:nth-child(2)').textContent;
-          document.querySelector('.page-title').textContent = `Pancake Tracker - ${dateText}`;
-          
-          // Animate the cards again when changing dates
-          const cards = document.querySelectorAll('.pancake-card');
-          cards.forEach((card, index) => {
-            card.style.opacity = 0;
-            card.style.transform = 'translateY(20px)';
-            
-            setTimeout(() => {
-              card.style.opacity = 1;
-              card.style.transform = 'translateY(0)';
-            }, 100 + (index * 100));
-          });
+          pancakeService.fetchData(dateText);
         });
       });
       
