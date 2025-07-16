@@ -261,3 +261,280 @@
                         <button class="btn btn-secondary" onclick="clearCalc()">C</button>
                         <button class="btn btn-secondary" onclick="appendToCalc('/')">/</button>
                         <button class="btn btn-secondary" onclick="appendToCalc('*')">*</button>
+                        <button class="btn btn-secondary" onclick="deleteLast()">←</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('7')">7</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('8')">8</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('9')">9</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('-')">-</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('4')">4</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('5')">5</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('6')">6</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('+')">+</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('1')">1</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('2')">2</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('3')">3</button>
+                        <button class="btn" onclick="calculate()" style="grid-row: span 2;">=</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('0')" style="grid-column: span 2;">0</button>
+                        <button class="btn btn-secondary" onclick="appendToCalc('.')">.</button>
+                    </div>
+                </div>
+
+                <!-- Compound Interest Calculator -->
+                <div class="tool-card">
+                    <h3>Compound Interest Calculator</h3>
+                    <div class="input-group">
+                        <label>Principal Amount ($)</label>
+                        <input type="number" id="principal" placeholder="10000">
+                    </div>
+                    <div class="input-group">
+                        <label>Annual Interest Rate (%)</label>
+                        <input type="number" id="interest-rate" placeholder="5" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>Time Period (years)</label>
+                        <input type="number" id="time-period" placeholder="10">
+                    </div>
+                    <div class="input-group">
+                        <label>Compounding Frequency</label>
+                        <select id="compound-freq">
+                            <option value="1">Annually</option>
+                            <option value="2">Semi-annually</option>
+                            <option value="4">Quarterly</option>
+                            <option value="12">Monthly</option>
+                            <option value="365">Daily</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="calculateCompoundInterest()">Calculate</button>
+                    <div id="compound-result" class="result hidden"></div>
+                </div>
+
+                <!-- Present Value Calculator -->
+                <div class="tool-card">
+                    <h3>Present Value Calculator</h3>
+                    <div class="input-group">
+                        <label>Future Value ($)</label>
+                        <input type="number" id="future-value" placeholder="15000">
+                    </div>
+                    <div class="input-group">
+                        <label>Discount Rate (%)</label>
+                        <input type="number" id="discount-rate" placeholder="8" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>Number of Periods</label>
+                        <input type="number" id="periods" placeholder="5">
+                    </div>
+                    <button class="btn" onclick="calculatePresentValue()">Calculate</button>
+                    <div id="pv-result" class="result hidden"></div>
+                </div>
+
+                <!-- Loan Payment Calculator -->
+                <div class="tool-card">
+                    <h3>Loan Payment Calculator</h3>
+                    <div class="input-group">
+                        <label>Loan Amount ($)</label>
+                        <input type="number" id="loan-amount" placeholder="250000">
+                    </div>
+                    <div class="input-group">
+                        <label>Annual Interest Rate (%)</label>
+                        <input type="number" id="loan-rate" placeholder="4.5" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>Loan Term (years)</label>
+                        <input type="number" id="loan-term" placeholder="30">
+                    </div>
+                    <button class="btn" onclick="calculateLoanPayment()">Calculate</button>
+                    <div id="loan-result" class="result hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Ratios Section -->
+        <div id="ratios" class="section hidden">
+            <h2>Financial Ratio Analysis</h2>
+            <div class="tool-grid">
+                <!-- Liquidity Ratios -->
+                <div class="tool-card">
+                    <h3>Liquidity Ratios</h3>
+                    <div class="input-group">
+                        <label>Current Assets ($)</label>
+                        <input type="number" id="current-assets" placeholder="150000">
+                    </div>
+                    <div class="input-group">
+                        <label>Current Liabilities ($)</label>
+                        <input type="number" id="current-liabilities" placeholder="100000">
+                    </div>
+                    <div class="input-group">
+                        <label>Quick Assets ($)</label>
+                        <input type="number" id="quick-assets" placeholder="120000">
+                    </div>
+                    <div class="input-group">
+                        <label>Inventory ($)</label>
+                        <input type="number" id="inventory" placeholder="30000">
+                    </div>
+                    <button class="btn" onclick="calculateLiquidityRatios()">Calculate</button>
+                    <div id="liquidity-result" class="result hidden"></div>
+                </div>
+
+                <!-- Profitability Ratios -->
+                <div class="tool-card">
+                    <h3>Profitability Ratios</h3>
+                    <div class="input-group">
+                        <label>Net Income ($)</label>
+                        <input type="number" id="net-income" placeholder="50000">
+                    </div>
+                    <div class="input-group">
+                        <label>Revenue ($)</label>
+                        <input type="number" id="revenue" placeholder="500000">
+                    </div>
+                    <div class="input-group">
+                        <label>Total Assets ($)</label>
+                        <input type="number" id="total-assets" placeholder="300000">
+                    </div>
+                    <div class="input-group">
+                        <label>Shareholders' Equity ($)</label>
+                        <input type="number" id="shareholders-equity" placeholder="200000">
+                    </div>
+                    <button class="btn" onclick="calculateProfitabilityRatios()">Calculate</button>
+                    <div id="profitability-result" class="result hidden"></div>
+                </div>
+
+                <!-- Leverage Ratios -->
+                <div class="tool-card">
+                    <h3>Leverage Ratios</h3>
+                    <div class="input-group">
+                        <label>Total Debt ($)</label>
+                        <input type="number" id="total-debt" placeholder="100000">
+                    </div>
+                    <div class="input-group">
+                        <label>Total Equity ($)</label>
+                        <input type="number" id="total-equity" placeholder="200000">
+                    </div>
+                    <div class="input-group">
+                        <label>Total Assets ($)</label>
+                        <input type="number" id="total-assets-leverage" placeholder="300000">
+                    </div>
+                    <div class="input-group">
+                        <label>EBIT ($)</label>
+                        <input type="number" id="ebit" placeholder="75000">
+                    </div>
+                    <div class="input-group">
+                        <label>Interest Expense ($)</label>
+                        <input type="number" id="interest-expense" placeholder="5000">
+                    </div>
+                    <button class="btn" onclick="calculateLeverageRatios()">Calculate</button>
+                    <div id="leverage-result" class="result hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Depreciation Section -->
+        <div id="depreciation" class="section hidden">
+            <h2>Depreciation Calculators</h2>
+            <div class="tool-grid">
+                <!-- Straight-Line Depreciation -->
+                <div class="tool-card">
+                    <h3>Straight-Line Depreciation</h3>
+                    <div class="input-group">
+                        <label>Asset Cost ($)</label>
+                        <input type="number" id="asset-cost" placeholder="50000">
+                    </div>
+                    <div class="input-group">
+                        <label>Salvage Value ($)</label>
+                        <input type="number" id="salvage-value" placeholder="5000">
+                    </div>
+                    <div class="input-group">
+                        <label>Useful Life (years)</label>
+                        <input type="number" id="useful-life" placeholder="10">
+                    </div>
+                    <button class="btn" onclick="calculateStraightLine()">Calculate</button>
+                    <div id="straight-line-result" class="result hidden"></div>
+                </div>
+
+                <!-- Double Declining Balance -->
+                <div class="tool-card">
+                    <h3>Double Declining Balance</h3>
+                    <div class="input-group">
+                        <label>Asset Cost ($)</label>
+                        <input type="number" id="ddb-cost" placeholder="50000">
+                    </div>
+                    <div class="input-group">
+                        <label>Salvage Value ($)</label>
+                        <input type="number" id="ddb-salvage" placeholder="5000">
+                    </div>
+                    <div class="input-group">
+                        <label>Useful Life (years)</label>
+                        <input type="number" id="ddb-life" placeholder="10">
+                    </div>
+                    <button class="btn" onclick="calculateDDB()">Calculate Schedule</button>
+                    <div id="ddb-result" class="result hidden"></div>
+                </div>
+
+                <!-- Sum of Years' Digits -->
+                <div class="tool-card">
+                    <h3>Sum of Years' Digits</h3>
+                    <div class="input-group">
+                        <label>Asset Cost ($)</label>
+                        <input type="number" id="syd-cost" placeholder="50000">
+                    </div>
+                    <div class="input-group">
+                        <label>Salvage Value ($)</label>
+                        <input type="number" id="syd-salvage" placeholder="5000">
+                    </div>
+                    <div class="input-group">
+                        <label>Useful Life (years)</label>
+                        <input type="number" id="syd-life" placeholder="10">
+                    </div>
+                    <button class="btn" onclick="calculateSYD()">Calculate Schedule</button>
+                    <div id="syd-result" class="result hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tax Tools Section -->
+        <div id="taxes" class="section hidden">
+            <h2>Tax Calculation Tools</h2>
+            <div class="tool-grid">
+                <!-- Tax Bracket Calculator -->
+                <div class="tool-card">
+                    <h3>Federal Tax Calculator (2024)</h3>
+                    <div class="input-group">
+                        <label>Annual Income ($)</label>
+                        <input type="number" id="tax-income" placeholder="75000">
+                    </div>
+                    <div class="input-group">
+                        <label>Filing Status</label>
+                        <select id="filing-status">
+                            <option value="single">Single</option>
+                            <option value="married">Married Filing Jointly</option>
+                            <option value="married-separate">Married Filing Separately</option>
+                            <option value="head">Head of Household</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="calculateFederalTax()">Calculate Tax</button>
+                    <div id="tax-result" class="result hidden"></div>
+                </div>
+
+                <!-- Payroll Tax Calculator -->
+                <div class="tool-card">
+                    <h3>Payroll Tax Calculator</h3>
+                    <div class="input-group">
+                        <label>Gross Annual Salary ($)</label>
+                        <input type="number" id="gross-salary" placeholder="60000">
+                    </div>
+                    <div class="input-group">
+                        <label>Pay Period</label>
+                        <select id="pay-period">
+                            <option value="26">Bi-weekly (26 periods)</option>
+                            <option value="24">Semi-monthly (24 periods)</option>
+                            <option value="12">Monthly (12 periods)</option>
+                            <option value="52">Weekly (52 periods)</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="calculatePayrollTax()">Calculate</button>
+                    <div id="payroll-result" class="result hidden"></div>
+                </div>
+
+                <!-- Sales Tax Calculator -->
+                <div class="tool-card">
+                    <h3>Sales Tax Calculator</h3>
+                    <div class=
