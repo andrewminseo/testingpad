@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>the Workspace</title>
+    <title>Professional Accountant Workspace</title>
     <style>
         * {
             margin: 0;
@@ -425,7 +425,7 @@
                 <div class="tool-card">
                     <h3>Basic Calculator</h3>
                     <div class="input-group">
-                        <input type="text" id="calc-display" readonly class="calculator-display">
+                        <input type="text" id="calc-display" readonly class="calculator-display" value="0">
                     </div>
                     <div class="calculator-grid">
                         <button class="calculator-btn btn-secondary" onclick="clearCalc()">C</button>
@@ -792,4 +792,813 @@
                     <button class="btn btn-secondary btn-small" onclick="loadTemplate('payroll')">Payroll</button>
                     <button class="btn btn-secondary btn-small" onclick="loadTemplate('depreciation')">Depreciation</button>
                     <button class="btn btn-secondary btn-small" onclick="loadTemplate('loan-payment')">Loan Payment</button>
-                    <div id="
+                    <div id="template-result" class="result hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Reference Section -->
+        <div id="reference" class="section hidden">
+            <h1 class="page-title">Quick Reference Guide</h1>
+            <p class="page-subtitle">Essential formulas, ratios, and accounting principles</p>
+            
+            <div class="tool-grid">
+                <!-- Financial Formulas -->
+                <div class="tool-card">
+                    <h3>Key Financial Formulas</h3>
+                    <div class="quick-ref">
+                        <h4>Present Value</h4>
+                        <p><span class="formula">PV = FV / (1 + r)^n</span></p>
+                        <p>Where: FV = Future Value, r = interest rate, n = periods</p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Future Value</h4>
+                        <p><span class="formula">FV = PV × (1 + r)^n</span></p>
+                        <p>Where: PV = Present Value, r = interest rate, n = periods</p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Loan Payment (PMT)</h4>
+                        <p><span class="formula">PMT = PV × [r(1+r)^n] / [(1+r)^n - 1]</span></p>
+                        <p>Where: PV = loan amount, r = monthly rate, n = payments</p>
+                    </div>
+                </div>
+
+                <!-- Ratio Formulas -->
+                <div class="tool-card">
+                    <h3>Financial Ratio Formulas</h3>
+                    <div class="quick-ref">
+                        <h4>Liquidity Ratios</h4>
+                        <p><span class="formula">Current Ratio = Current Assets / Current Liabilities</span></p>
+                        <p><span class="formula">Quick Ratio = (Current Assets - Inventory) / Current Liabilities</span></p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Profitability Ratios</h4>
+                        <p><span class="formula">ROA = Net Income / Total Assets</span></p>
+                        <p><span class="formula">ROE = Net Income / Shareholders' Equity</span></p>
+                        <p><span class="formula">Profit Margin = Net Income / Revenue</span></p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Leverage Ratios</h4>
+                        <p><span class="formula">Debt-to-Equity = Total Debt / Total Equity</span></p>
+                        <p><span class="formula">Times Interest Earned = EBIT / Interest Expense</span></p>
+                    </div>
+                </div>
+
+                <!-- Accounting Equation -->
+                <div class="tool-card">
+                    <h3>Fundamental Accounting Principles</h3>
+                    <div class="quick-ref">
+                        <h4>Basic Accounting Equation</h4>
+                        <p><span class="formula">Assets = Liabilities + Equity</span></p>
+                        <p>This equation must always balance</p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Debit and Credit Rules</h4>
+                        <p><strong>Debits increase:</strong> Assets, Expenses, Dividends</p>
+                        <p><strong>Credits increase:</strong> Liabilities, Equity, Revenue</p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Financial Statement Order</h4>
+                        <p>1. Income Statement → 2. Statement of Retained Earnings → 3. Balance Sheet → 4. Cash Flow Statement</p>
+                    </div>
+                </div>
+
+                <!-- Tax Information -->
+                <div class="tool-card">
+                    <h3>2024 Tax Information</h3>
+                    <div class="quick-ref">
+                        <h4>Standard Deductions</h4>
+                        <p>Single: $14,600</p>
+                        <p>Married Filing Jointly: $29,200</p>
+                        <p>Head of Household: $21,900</p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Payroll Tax Rates</h4>
+                        <p>Social Security: 6.2% (up to $160,200)</p>
+                        <p>Medicare: 1.45% (all income)</p>
+                        <p>Additional Medicare: 0.9% (over $200,000)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentCalc = '';
+
+        // Set today's date on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('journal-date').value = today;
+        });
+
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.add('hidden'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Update nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Utility Functions
+        function formatNumber(num) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(num);
+        }
+
+        function showResult(elementId, content, type = 'success') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = content;
+            element.className = `result ${type}`;
+            element.classList.remove('hidden');
+        }
+
+        function getRatioInterpretation(ratio, type) {
+            switch(type) {
+                case 'current':
+                    if (ratio >= 2) return '(Excellent)';
+                    if (ratio >= 1.5) return '(Good)';
+                    if (ratio >= 1) return '(Acceptable)';
+                    return '(Poor)';
+                case 'quick':
+                    if (ratio >= 1.5) return '(Excellent)';
+                    if (ratio >= 1) return '(Good)';
+                    if (ratio >= 0.8) return '(Acceptable)';
+                    return '(Poor)';
+                default:
+                    return '';
+            }
+        }
+
+        // Calculator functions
+        function appendToCalc(value) {
+            if (currentCalc === '0' || currentCalc === 'Error') {
+                currentCalc = '';
+            }
+            if (value === '*') value = '*';
+            currentCalc += value;
+            document.getElementById('calc-display').value = currentCalc;
+        }
+
+        function clearCalc() {
+            currentCalc = '0';
+            document.getElementById('calc-display').value = currentCalc;
+        }
+
+        function deleteLast() {
+            if (currentCalc.length > 1) {
+                currentCalc = currentCalc.slice(0, -1);
+            } else {
+                currentCalc = '0';
+            }
+            document.getElementById('calc-display').value = currentCalc;
+        }
+
+        function calculate() {
+            try {
+                // Replace × with * for calculation
+                const expression = currentCalc.replace(/×/g, '*');
+                const result = eval(expression);
+                if (isNaN(result) || !isFinite(result)) {
+                    throw new Error('Invalid calculation');
+                }
+                document.getElementById('calc-display').value = result;
+                currentCalc = result.toString();
+            } catch (error) {
+                document.getElementById('calc-display').value = 'Error';
+                currentCalc = 'Error';
+            }
+        }
+
+        // Compound Interest Calculator
+        function calculateCompoundInterest() {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const rate = parseFloat(document.getElementById('interest-rate').value) / 100;
+            const time = parseFloat(document.getElementById('time-period').value);
+            const frequency = parseFloat(document.getElementById('compound-freq').value);
+            
+            if (isNaN(principal) || isNaN(rate) || isNaN(time) || isNaN(frequency) || 
+                principal <= 0 || rate < 0 || time <= 0 || frequency <= 0) {
+                showResult('compound-result', 'Please enter valid positive numbers', 'error');
+                return;
+            }
+            
+            const amount = principal * Math.pow(1 + rate / frequency, frequency * time);
+            const interest = amount - principal;
+            
+            const result = `
+                <strong>Final Amount:</strong> ${formatNumber(amount)}<br>
+                <strong>Interest Earned:</strong> ${formatNumber(interest)}<br>
+                <strong>Total Return:</strong> ${((interest / principal) * 100).toFixed(2)}%
+            `;
+            
+            showResult('compound-result', result, 'success');
+        }
+
+        // Present Value Calculator
+        function calculatePresentValue() {
+            const futureValue = parseFloat(document.getElementById('future-value').value);
+            const discountRate = parseFloat(document.getElementById('discount-rate').value) / 100;
+            const periods = parseFloat(document.getElementById('periods').value);
+            
+            if (isNaN(futureValue) || isNaN(discountRate) || isNaN(periods) ||
+                futureValue <= 0 || discountRate < 0 || periods <= 0) {
+                showResult('pv-result', 'Please enter valid positive numbers', 'error');
+                return;
+            }
+            
+            const presentValue = futureValue / Math.pow(1 + discountRate, periods);
+            const discount = futureValue - presentValue;
+            
+            const result = `
+                <strong>Present Value:</strong> ${formatNumber(presentValue)}<br>
+                <strong>Discount Amount:</strong> ${formatNumber(discount)}<br>
+                <strong>Discount Rate:</strong> ${(discountRate * 100).toFixed(2)}%
+            `;
+            
+            showResult('pv-result', result, 'success');
+        }
+
+        // Loan Payment Calculator
+        function calculateLoanPayment() {
+            const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+            const annualRate = parseFloat(document.getElementById('loan-rate').value) / 100;
+            const years = parseFloat(document.getElementById('loan-term').value);
+            
+            if (isNaN(loanAmount) || isNaN(annualRate) || isNaN(years) ||
+                loanAmount <= 0 || annualRate < 0 || years <= 0) {
+                showResult('loan-result', 'Please enter valid positive numbers', 'error');
+                return;
+            }
+            
+            const monthlyRate = annualRate / 12;
+            const payments = years * 12;
+            
+            let monthlyPayment;
+            if (monthlyRate === 0) {
+                monthlyPayment = loanAmount / payments;
+            } else {
+                monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, payments)) / (Math.pow(1 + monthlyRate, payments) - 1);
+            }
+            
+            const totalPayment = monthlyPayment * payments;
+            const totalInterest = totalPayment - loanAmount;
+            
+            const result = `
+                <strong>Monthly Payment:</strong> ${formatNumber(monthlyPayment)}<br>
+                <strong>Total Payment:</strong> ${formatNumber(totalPayment)}<br>
+                <strong>Total Interest:</strong> ${formatNumber(totalInterest)}<br>
+                <strong>Interest Percentage:</strong> ${((totalInterest / loanAmount) * 100).toFixed(2)}%
+            `;
+            
+            showResult('loan-result', result, 'success');
+        }
+
+        // Liquidity Ratios Calculator
+        function calculateLiquidityRatios() {
+            const currentAssets = parseFloat(document.getElementById('current-assets').value);
+            const currentLiabilities = parseFloat(document.getElementById('current-liabilities').value);
+            const quickAssets = parseFloat(document.getElementById('quick-assets').value);
+            const inventory = parseFloat(document.getElementById('inventory').value);
+            
+            if (isNaN(currentAssets) || isNaN(currentLiabilities) || isNaN(quickAssets) || isNaN(inventory) ||
+                currentAssets < 0 || currentLiabilities <= 0 || quickAssets < 0 || inventory < 0) {
+                showResult('liquidity-result', 'Please enter valid numbers (liabilities must be > 0)', 'error');
+                return;
+            }
+            
+            const currentRatio = currentAssets / currentLiabilities;
+            const quickRatio = (currentAssets - inventory) / currentLiabilities;
+            const workingCapital = currentAssets - currentLiabilities;
+            
+            const result = `
+                <strong>Current Ratio:</strong> ${currentRatio.toFixed(2)} ${getRatioInterpretation(currentRatio, 'current')}<br>
+                <strong>Quick Ratio:</strong> ${quickRatio.toFixed(2)} ${getRatioInterpretation(quickRatio, 'quick')}<br>
+                <strong>Working Capital:</strong> ${formatNumber(workingCapital)}
+            `;
+            
+            showResult('liquidity-result', result, 'success');
+        }
+
+        // Profitability Ratios Calculator
+        function calculateProfitabilityRatios() {
+            const netIncome = parseFloat(document.getElementById('net-income').value);
+            const revenue = parseFloat(document.getElementById('revenue').value);
+            const totalAssets = parseFloat(document.getElementById('total-assets').value);
+            const shareholdersEquity = parseFloat(document.getElementById('shareholders-equity').value);
+            
+            if (isNaN(netIncome) || isNaN(revenue) || isNaN(totalAssets) || isNaN(shareholdersEquity) ||
+                revenue <= 0 || totalAssets <= 0 || shareholdersEquity <= 0) {
+                showResult('profitability-result', 'Please enter valid numbers (revenue, assets, and equity must be > 0)', 'error');
+                return;
+            }
+            
+            const profitMargin = (netIncome / revenue) * 100;
+            const roa = (netIncome / totalAssets) * 100;
+            const roe = (netIncome / shareholdersEquity) * 100;
+            
+            const result = `
+                <strong>Profit Margin:</strong> ${profitMargin.toFixed(2)}%<br>
+                <strong>Return on Assets (ROA):</strong> ${roa.toFixed(2)}%<br>
+                <strong>Return on Equity (ROE):</strong> ${roe.toFixed(2)}%
+            `;
+            
+            showResult('profitability-result', result, 'success');
+        }
+
+        // Leverage Ratios Calculator
+        function calculateLeverageRatios() {
+            const totalDebt = parseFloat(document.getElementById('total-debt').value);
+            const totalEquity = parseFloat(document.getElementById('total-equity').value);
+            const totalAssets = parseFloat(document.getElementById('total-assets-leverage').value);
+            const ebit = parseFloat(document.getElementById('ebit').value);
+            const interestExpense = parseFloat(document.getElementById('interest-expense').value);
+            
+            if (isNaN(totalDebt) || isNaN(totalEquity) || isNaN(totalAssets) || isNaN(ebit) || isNaN(interestExpense) ||
+                totalDebt < 0 || totalEquity <= 0 || totalAssets <= 0 || interestExpense <= 0) {
+                showResult('leverage-result', 'Please enter valid numbers (equity, assets, and interest expense must be > 0)', 'error');
+                return;
+            }
+            
+            const debtToEquity = totalDebt / totalEquity;
+            const debtToAssets = totalDebt / totalAssets;
+            const timesInterestEarned = ebit / interestExpense;
+            
+            const result = `
+                <strong>Debt-to-Equity Ratio:</strong> ${debtToEquity.toFixed(2)}<br>
+                <strong>Debt-to-Assets Ratio:</strong> ${debtToAssets.toFixed(2)}<br>
+                <strong>Times Interest Earned:</strong> ${timesInterestEarned.toFixed(2)}
+            `;
+            
+            showResult('leverage-result', result, 'success');
+        }
+
+        // Straight-Line Depreciation
+        function calculateStraightLine() {
+            const assetCost = parseFloat(document.getElementById('asset-cost').value);
+            const salvageValue = parseFloat(document.getElementById('salvage-value').value);
+            const usefulLife = parseFloat(document.getElementById('useful-life').value);
+            
+            if (isNaN(assetCost) || isNaN(salvageValue) || isNaN(usefulLife) ||
+                assetCost <= 0 || salvageValue < 0 || usefulLife <= 0 || salvageValue >= assetCost) {
+                showResult('straight-line-result', 'Please enter valid numbers (cost > salvage ≥ 0, useful life > 0)', 'error');
+                return;
+            }
+            
+            const depreciableAmount = assetCost - salvageValue;
+            const annualDepreciation = depreciableAmount / usefulLife;
+            const depreciationRate = (annualDepreciation / assetCost) * 100;
+            
+            const result = `
+                <strong>Annual Depreciation:</strong> ${formatNumber(annualDepreciation)}<br>
+                <strong>Depreciation Rate:</strong> ${depreciationRate.toFixed(2)}%<br>
+                <strong>Depreciable Amount:</strong> ${formatNumber(depreciableAmount)}
+            `;
+            
+            showResult('straight-line-result', result, 'success');
+        }
+
+        // Double Declining Balance
+        function calculateDDB() {
+            const assetCost = parseFloat(document.getElementById('ddb-cost').value);
+            const salvageValue = parseFloat(document.getElementById('ddb-salvage').value);
+            const usefulLife = parseFloat(document.getElementById('ddb-life').value);
+            
+            if (isNaN(assetCost) || isNaN(salvageValue) || isNaN(usefulLife) ||
+                assetCost <= 0 || salvageValue < 0 || usefulLife <= 0 || salvageValue >= assetCost) {
+                showResult('ddb-result', 'Please enter valid numbers (cost > salvage ≥ 0, useful life > 0)', 'error');
+                return;
+            }
+            
+            const depreciationRate = (2 / usefulLife) * 100;
+            let bookValue = assetCost;
+            let schedule = '<table class="table"><tr><th>Year</th><th>Beginning Value</th><th>Depreciation</th><th>Ending Value</th></tr>';
+            
+            for (let year = 1; year <= usefulLife; year++) {
+                let depreciation = bookValue * (2 / usefulLife);
+                if (bookValue - depreciation < salvageValue) {
+                    depreciation = Math.max(0, bookValue - salvageValue);
+                }
+                const endingValue = bookValue - depreciation;
+                
+                schedule += `<tr><td>${year}</td><td>${formatNumber(bookValue)}</td><td>${formatNumber(depreciation)}</td><td>${formatNumber(endingValue)}</td></tr>`;
+                bookValue = endingValue;
+                
+                if (bookValue <= salvageValue) break;
+            }
+            
+            schedule += '</table>';
+            const result = `<strong>Depreciation Rate:</strong> ${depreciationRate.toFixed(2)}%<br>${schedule}`;
+            
+            showResult('ddb-result', result, 'success');
+        }
+
+        // Sum of Years' Digits
+        function calculateSYD() {
+            const assetCost = parseFloat(document.getElementById('syd-cost').value);
+            const salvageValue = parseFloat(document.getElementById('syd-salvage').value);
+            const usefulLife = parseFloat(document.getElementById('syd-life').value);
+            
+            if (isNaN(assetCost) || isNaN(salvageValue) || isNaN(usefulLife) ||
+                assetCost <= 0 || salvageValue < 0 || usefulLife <= 0 || salvageValue >= assetCost) {
+                showResult('syd-result', 'Please enter valid numbers (cost > salvage ≥ 0, useful life > 0)', 'error');
+                return;
+            }
+            
+            const depreciableAmount = assetCost - salvageValue;
+            const sumOfYears = (usefulLife * (usefulLife + 1)) / 2;
+            let schedule = '<table class="table"><tr><th>Year</th><th>Fraction</th><th>Depreciation</th><th>Accumulated</th></tr>';
+            let accumulated = 0;
+            
+            for (let year = 1; year <= usefulLife; year++) {
+                const fraction = (usefulLife - year + 1) / sumOfYears;
+                const depreciation = depreciableAmount * fraction;
+                accumulated += depreciation;
+                
+                schedule += `<tr><td>${year}</td><td>${fraction.toFixed(3)}</td><td>${formatNumber(depreciation)}</td><td>${formatNumber(accumulated)}</td></tr>`;
+            }
+            
+            schedule += '</table>';
+            const result = `<strong>Sum of Years:</strong> ${sumOfYears}<br>${schedule}`;
+            
+            showResult('syd-result', result, 'success');
+        }
+
+        // Federal Tax Calculator
+        function calculateFederalTax() {
+            const income = parseFloat(document.getElementById('tax-income').value);
+            const status = document.getElementById('filing-status').value;
+            
+            if (isNaN(income) || income < 0) {
+                showResult('tax-result', 'Please enter valid income', 'error');
+                return;
+            }
+            
+            const brackets2024 = {
+                single: [
+                    { min: 0, max: 11600, rate: 0.10 },
+                    { min: 11600, max: 47150, rate: 0.12 },
+                    { min: 47150, max: 100525, rate: 0.22 },
+                    { min: 100525, max: 191950, rate: 0.24 },
+                    { min: 191950, max: 243725, rate: 0.32 },
+                    { min: 243725, max: 609350, rate: 0.35 },
+                    { min: 609350, max: Infinity, rate: 0.37 }
+                ],
+                married: [
+                    { min: 0, max: 23200, rate: 0.10 },
+                    { min: 23200, max: 94300, rate: 0.12 },
+                    { min: 94300, max: 201050, rate: 0.22 },
+                    { min: 201050, max: 383900, rate: 0.24 },
+                    { min: 383900, max: 487450, rate: 0.32 },
+                    { min: 487450, max: 731200, rate: 0.35 },
+                    { min: 731200, max: Infinity, rate: 0.37 }
+                ]
+            };
+            
+            const taxBrackets = brackets2024[status] || brackets2024.single;
+            let totalTax = 0;
+            let breakdown = '';
+            
+            for (const bracket of taxBrackets) {
+                if (income > bracket.min) {
+                    const taxableInBracket = Math.min(income, bracket.max) - bracket.min;
+                    const taxForBracket = taxableInBracket * bracket.rate;
+                    totalTax += taxForBracket;
+                    
+                    if (taxableInBracket > 0) {
+                        breakdown += `${(bracket.rate * 100).toFixed(0)}% on ${formatNumber(taxableInBracket)} = ${formatNumber(taxForBracket)}<br>`;
+                    }
+                }
+            }
+            
+            const effectiveRate = income > 0 ? (totalTax / income) * 100 : 0;
+            const afterTaxIncome = income - totalTax;
+            
+            const result = `
+                <strong>Federal Tax Owed:</strong> ${formatNumber(totalTax)}<br>
+                <strong>Effective Tax Rate:</strong> ${effectiveRate.toFixed(2)}%<br>
+                <strong>After-Tax Income:</strong> ${formatNumber(afterTaxIncome)}<br>
+                <strong>Tax Breakdown:</strong><br>${breakdown}
+            `;
+            
+            showResult('tax-result', result, 'success');
+        }
+
+        // Payroll Tax Calculator
+        function calculatePayrollTax() {
+            const grossSalary = parseFloat(document.getElementById('gross-salary').value);
+            const payPeriods = parseFloat(document.getElementById('pay-period').value);
+            
+            if (isNaN(grossSalary) || isNaN(payPeriods) || grossSalary < 0 || payPeriods <= 0) {
+                showResult('payroll-result', 'Please enter valid positive numbers', 'error');
+                return;
+            }
+            
+            const grossPerPeriod = grossSalary / payPeriods;
+            const socialSecurityRate = 0.062;
+            const medicareRate = 0.0145;
+            const socialSecurityWageBase = 160200; // 2024 limit
+            
+            let socialSecurityTax = Math.min(grossSalary, socialSecurityWageBase) * socialSecurityRate;
+            let medicareTax = grossSalary * medicareRate;
+            
+            // Additional Medicare tax for high earners
+            if (grossSalary > 200000) {
+                medicareTax += (grossSalary - 200000) * 0.009;
+            }
+            
+            const totalPayrollTax = socialSecurityTax + medicareTax;
+            const netSalary = grossSalary - totalPayrollTax;
+            
+            const result = `
+                <strong>Gross Per Pay Period:</strong> ${formatNumber(grossPerPeriod)}<br>
+                <strong>Social Security Tax:</strong> ${formatNumber(socialSecurityTax)} (${(socialSecurityRate * 100).toFixed(2)}%)<br>
+                <strong>Medicare Tax:</strong> ${formatNumber(medicareTax)} (${(medicareRate * 100).toFixed(2)}%+)<br>
+                <strong>Total Payroll Tax:</strong> ${formatNumber(totalPayrollTax)}<br>
+                <strong>Net Annual Salary:</strong> ${formatNumber(netSalary)}
+            `;
+            
+            showResult('payroll-result', result, 'success');
+        }
+
+        // Sales Tax Calculator
+        function calculateSalesTax() {
+            const saleAmount = parseFloat(document.getElementById('sale-amount').value);
+            const taxRate = parseFloat(document.getElementById('sales-tax-rate').value) / 100;
+            
+            if (isNaN(saleAmount) || isNaN(taxRate) || saleAmount < 0 || taxRate < 0) {
+                showResult('sales-tax-result', 'Please enter valid positive numbers', 'error');
+                return;
+            }
+            
+            const salesTax = saleAmount * taxRate;
+            const totalAmount = saleAmount + salesTax;
+            
+            const result = `
+                <strong>Sale Amount:</strong> ${formatNumber(saleAmount)}<br>
+                <strong>Sales Tax:</strong> ${formatNumber(salesTax)} (${(taxRate * 100).toFixed(2)}%)<br>
+                <strong>Total Amount:</strong> ${formatNumber(totalAmount)}
+            `;
+            
+            showResult('sales-tax-result', result, 'success');
+        }
+
+        // Journal Entry Functions
+        function addJournalLine() {
+            const journalEntries = document.getElementById('journal-entries');
+            const newLine = document.createElement('div');
+            newLine.className = 'journal-line';
+            newLine.innerHTML = `
+                <div class="two-column">
+                    <div class="input-group">
+                        <label>Account Name</label>
+                        <input type="text" placeholder="Account name">
+                    </div>
+                    <div class="input-group">
+                        <label>Debit ($)</label>
+                        <input type="number" placeholder="0.00" step="0.01">
+                    </div>
+                </div>
+                <div class="two-column">
+                    <div class="input-group">
+                        <label>Account Name</label>
+                        <input type="text" placeholder="Account name">
+                    </div>
+                    <div class="input-group">
+                        <label>Credit ($)</label>
+                        <input type="number" placeholder="0.00" step="0.01">
+                    </div>
+                </div>
+                <button class="btn btn-secondary btn-small" onclick="removeJournalLine(this)">Remove Line</button>
+            `;
+            journalEntries.appendChild(newLine);
+        }
+
+        function removeJournalLine(button) {
+            const journalEntries = document.getElementById('journal-entries');
+            if (journalEntries.children.length > 1) {
+                button.parentElement.remove();
+            }
+        }
+
+        function validateJournalEntry() {
+            const journalLines = document.querySelectorAll('.journal-line');
+            let totalDebits = 0;
+            let totalCredits = 0;
+            let entries = [];
+            
+            journalLines.forEach(line => {
+                const inputs = line.querySelectorAll('input');
+                const debitInput = inputs[1];
+                const creditInput = inputs[3];
+                
+                if (debitInput && debitInput.value) {
+                    const debitAmount = parseFloat(debitInput.value);
+                    if (!isNaN(debitAmount) && debitAmount > 0) {
+                        totalDebits += debitAmount;
+                        entries.push({
+                            account: inputs[0].value || 'Unnamed Account',
+                            debit: debitAmount,
+                            credit: 0
+                        });
+                    }
+                }
+                
+                if (creditInput && creditInput.value) {
+                    const creditAmount = parseFloat(creditInput.value);
+                    if (!isNaN(creditAmount) && creditAmount > 0) {
+                        totalCredits += creditAmount;
+                        entries.push({
+                            account: inputs[2].value || 'Unnamed Account',
+                            debit: 0,
+                            credit: creditAmount
+                        });
+                    }
+                }
+            });
+            
+            const isBalanced = Math.abs(totalDebits - totalCredits) < 0.01;
+            const date = document.getElementById('journal-date').value;
+            const description = document.getElementById('journal-desc').value;
+            
+            let result = '';
+            if (isBalanced && totalDebits > 0) {
+                result = `
+                    <strong>✓ Journal Entry is Balanced!</strong><br>
+                    <strong>Date:</strong> ${date}<br>
+                    <strong>Description:</strong> ${description}<br>
+                    <strong>Total Debits:</strong> ${formatNumber(totalDebits)}<br>
+                    <strong>Total Credits:</strong> ${formatNumber(totalCredits)}
+                `;
+                showResult('journal-result', result, 'success');
+            } else if (totalDebits === 0 && totalCredits === 0) {
+                result = `<strong>⚠ Please enter some debit and credit amounts</strong>`;
+                showResult('journal-result', result, 'error');
+            } else {
+                result = `
+                    <strong>✗ Journal Entry is NOT Balanced!</strong><br>
+                    <strong>Total Debits:</strong> ${formatNumber(totalDebits)}<br>
+                    <strong>Total Credits:</strong> ${formatNumber(totalCredits)}<br>
+                    <strong>Difference:</strong> ${formatNumber(Math.abs(totalDebits - totalCredits))}
+                `;
+                showResult('journal-result', result, 'error');
+            }
+        }
+
+        function loadTemplate(templateType) {
+            const templates = {
+                'cash-sale': {
+                    description: 'Cash sale to customer',
+                    entries: [
+                        { account: 'Cash', debit: 1000, credit: 0 },
+                        { account: 'Sales Revenue', debit: 0, credit: 1000 }
+                    ]
+                },
+                'credit-sale': {
+                    description: 'Credit sale to customer',
+                    entries: [
+                        { account: 'Accounts Receivable', debit: 1500, credit: 0 },
+                        { account: 'Sales Revenue', debit: 0, credit: 1500 }
+                    ]
+                },
+                'purchase': {
+                    description: 'Purchase of inventory',
+                    entries: [
+                        { account: 'Inventory', debit: 2000, credit: 0 },
+                        { account: 'Accounts Payable', debit: 0, credit: 2000 }
+                    ]
+                },
+                'payroll': {
+                    description: 'Employee payroll',
+                    entries: [
+                        { account: 'Salaries Expense', debit: 5000, credit: 0 },
+                        { account: 'Cash', debit: 0, credit: 3800 },
+                        { account: 'Payroll Tax Payable', debit: 0, credit: 1200 }
+                    ]
+                },
+                'depreciation': {
+                    description: 'Monthly depreciation expense',
+                    entries: [
+                        { account: 'Depreciation Expense', debit: 500, credit: 0 },
+                        { account: 'Accumulated Depreciation', debit: 0, credit: 500 }
+                    ]
+                },
+                'loan-payment': {
+                    description: 'Monthly loan payment',
+                    entries: [
+                        { account: 'Interest Expense', debit: 200, credit: 0 },
+                        { account: 'Notes Payable', debit: 800, credit: 0 },
+                        { account: 'Cash', debit: 0, credit: 1000 }
+                    ]
+                }
+            };
+            
+            const template = templates[templateType];
+            if (!template) return;
+
+            // Update description
+            document.getElementById('journal-desc').value = template.description;
+
+            // Clear existing entries and create new ones
+            const journalEntries = document.getElementById('journal-entries');
+            journalEntries.innerHTML = '';
+
+            // Group entries by debit/credit pairs
+            let debitEntries = template.entries.filter(e => e.debit > 0);
+            let creditEntries = template.entries.filter(e => e.credit > 0);
+            
+            // Create lines for the template
+            const maxEntries = Math.max(debitEntries.length, creditEntries.length);
+            
+            for (let i = 0; i < maxEntries; i++) {
+                const newLine = document.createElement('div');
+                newLine.className = 'journal-line';
+                
+                const debitEntry = debitEntries[i] || { account: '', debit: '' };
+                const creditEntry = creditEntries[i] || { account: '', credit: '' };
+                
+                newLine.innerHTML = `
+                    <div class="two-column">
+                        <div class="input-group">
+                            <label>Account Name</label>
+                            <input type="text" value="${debitEntry.account}" placeholder="Account name">
+                        </div>
+                        <div class="input-group">
+                            <label>Debit ($)</label>
+                            <input type="number" value="${debitEntry.debit || ''}" placeholder="0.00" step="0.01">
+                        </div>
+                    </div>
+                    <div class="two-column">
+                        <div class="input-group">
+                            <label>Account Name</label>
+                            <input type="text" value="${creditEntry.account}" placeholder="Account name">
+                        </div>
+                        <div class="input-group">
+                            <label>Credit ($)</label>
+                            <input type="number" value="${creditEntry.credit || ''}" placeholder="0.00" step="0.01">
+                        </div>
+                    </div>
+                    ${i > 0 ? '<button class="btn btn-secondary btn-small" onclick="removeJournalLine(this)">Remove Line</button>' : ''}
+                `;
+                journalEntries.appendChild(newLine);
+            }
+            
+            let result = `<strong>Template Loaded:</strong> ${template.description}<br><br>`;
+            result += '<table class="table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>';
+            
+            template.entries.forEach(entry => {
+                result += `<tr><td>${entry.account}</td><td>${entry.debit ? formatNumber(entry.debit) : ''}</td><td>${entry.credit ? formatNumber(entry.credit) : ''}</td></tr>`;
+            });
+            
+            result += '</table>';
+            showResult('template-result', result, 'success');
+        }
+
+        // Keyboard support for calculator
+        document.addEventListener('keydown', function(e) {
+            const calcDisplay = document.getElementById('calc-display');
+            if (document.activeElement === calcDisplay || calcDisplay.closest('.tool-card').contains(document.activeElement)) {
+                switch(e.key) {
+                    case '0': case '1': case '2': case '3': case '4':
+                    case '5': case '6': case '7': case '8': case '9':
+                    case '.': case '+': case '-': case '/':
+                        e.preventDefault();
+                        appendToCalc(e.key);
+                        break;
+                    case '*':
+                        e.preventDefault();
+                        appendToCalc('*');
+                        break;
+                    case 'Enter':
+                    case '=':
+                        e.preventDefault();
+                        calculate();
+                        break;
+                    case 'Escape':
+                    case 'c':
+                    case 'C':
+                        e.preventDefault();
+                        clearCalc();
+                        break;
+                    case 'Backspace':
+                        e.preventDefault();
+                        deleteLast();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
