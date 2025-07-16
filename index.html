@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>the workspace</title>
+    <title>Accountant Workspace - Professional Tools</title>
     <style>
         * {
             margin: 0;
@@ -537,4 +537,758 @@
                 <!-- Sales Tax Calculator -->
                 <div class="tool-card">
                     <h3>Sales Tax Calculator</h3>
-                    <div class=
+                    <div class="input-group">
+                        <label>Sale Amount ($)</label>
+                        <input type="number" id="sale-amount" placeholder="1000" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>Tax Rate (%)</label>
+                        <input type="number" id="sales-tax-rate" placeholder="8.25" step="0.01">
+                    </div>
+                    <button class="btn" onclick="calculateSalesTax()">Calculate</button>
+                    <div id="sales-tax-result" class="result hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journal Entries Section -->
+        <div id="journal" class="section hidden">
+            <h2>Journal Entry Generator</h2>
+            <div class="tool-grid">
+                <!-- Journal Entry Creator -->
+                <div class="tool-card">
+                    <h3>Create Journal Entry</h3>
+                    <div class="input-group">
+                        <label>Date</label>
+                        <input type="date" id="journal-date">
+                    </div>
+                    <div class="input-group">
+                        <label>Description</label>
+                        <input type="text" id="journal-desc" placeholder="Cash sale to customer">
+                    </div>
+                    <div id="journal-entries">
+                        <div class="journal-line">
+                            <div class="two-column">
+                                <div class="input-group">
+                                    <label>Account Name</label>
+                                    <input type="text" placeholder="Cash">
+                                </div>
+                                <div class="input-group">
+                                    <label>Debit ($)</label>
+                                    <input type="number" placeholder="1000" step="0.01">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journal-line">
+                            <div class="two-column">
+                                <div class="input-group">
+                                    <label>Account Name</label>
+                                    <input type="text" placeholder="Sales Revenue">
+                                </div>
+                                <div class="input-group">
+                                    <label>Credit ($)</label>
+                                    <input type="number" placeholder="1000" step="0.01">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="addJournalLine()">Add Line</button>
+                    <button class="btn" onclick="validateJournalEntry()">Validate Entry</button>
+                    <div id="journal-result" class="result hidden"></div>
+                </div>
+
+                <!-- Common Journal Templates -->
+                <div class="tool-card">
+                    <h3>Common Journal Entry Templates</h3>
+                    <button class="btn btn-secondary" onclick="loadTemplate('cash-sale')">Cash Sale</button>
+                    <button class="btn btn-secondary" onclick="loadTemplate('credit-sale')">Credit Sale</button>
+                    <button class="btn btn-secondary" onclick="loadTemplate('purchase')">Purchase</button>
+                    <button class="btn btn-secondary" onclick="loadTemplate('payroll')">Payroll</button>
+                    <button class="btn btn-secondary" onclick="loadTemplate('depreciation')">Depreciation</button>
+                    <button class="btn btn-secondary" onclick="loadTemplate('loan-payment')">Loan Payment</button>
+                    <div id="template-result" class="result hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Reference Section -->
+        <div id="reference" class="section hidden">
+            <h2>Quick Reference Guide</h2>
+            <div class="tool-grid">
+                <!-- Financial Formulas -->
+                <div class="tool-card">
+                    <h3>Key Financial Formulas</h3>
+                    <div class="quick-ref">
+                        <h4>Present Value</h4>
+                        <p><span class="formula">PV = FV / (1 + r)^n</span></p>
+                        <p>Where: FV = Future Value, r = interest rate, n = periods</p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Future Value</h4>
+                        <p><span class="formula">FV = PV × (1 + r)^n</span></p>
+                        <p>Where: PV = Present Value, r = interest rate, n = periods</p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Loan Payment (PMT)</h4>
+                        <p><span class="formula">PMT = PV × [r(1+r)^n] / [(1+r)^n - 1]</span></p>
+                        <p>Where: PV = loan amount, r = monthly rate, n = payments</p>
+                    </div>
+                </div>
+
+                <!-- Ratio Formulas -->
+                <div class="tool-card">
+                    <h3>Financial Ratio Formulas</h3>
+                    <div class="quick-ref">
+                        <h4>Liquidity Ratios</h4>
+                        <p><span class="formula">Current Ratio = Current Assets / Current Liabilities</span></p>
+                        <p><span class="formula">Quick Ratio = (Current Assets - Inventory) / Current Liabilities</span></p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Profitability Ratios</h4>
+                        <p><span class="formula">ROA = Net Income / Total Assets</span></p>
+                        <p><span class="formula">ROE = Net Income / Shareholders' Equity</span></p>
+                        <p><span class="formula">Profit Margin = Net Income / Revenue</span></p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Leverage Ratios</h4>
+                        <p><span class="formula">Debt-to-Equity = Total Debt / Total Equity</span></p>
+                        <p><span class="formula">Times Interest Earned = EBIT / Interest Expense</span></p>
+                    </div>
+                </div>
+
+                <!-- Accounting Equation -->
+                <div class="tool-card">
+                    <h3>Fundamental Accounting Principles</h3>
+                    <div class="quick-ref">
+                        <h4>Basic Accounting Equation</h4>
+                        <p><span class="formula">Assets = Liabilities + Equity</span></p>
+                        <p>This equation must always balance</p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Debit and Credit Rules</h4>
+                        <p><strong>Debits increase:</strong> Assets, Expenses, Dividends</p>
+                        <p><strong>Credits increase:</strong> Liabilities, Equity, Revenue</p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Financial Statement Order</h4>
+                        <p>1. Income Statement → 2. Statement of Retained Earnings → 3. Balance Sheet → 4. Cash Flow Statement</p>
+                    </div>
+                </div>
+
+                <!-- Tax Information -->
+                <div class="tool-card">
+                    <h3>2024 Tax Information</h3>
+                    <div class="quick-ref">
+                        <h4>Standard Deductions</h4>
+                        <p>Single: $14,600</p>
+                        <p>Married Filing Jointly: $29,200</p>
+                        <p>Head of Household: $21,900</p>
+                    </div>
+                    <div class="quick-ref">
+                        <h4>Payroll Tax Rates</h4>
+                        <p>Social Security: 6.2% (up to $160,200)</p>
+                        <p>Medicare: 1.45% (all income)</p>
+                        <p>Additional Medicare: 0.9% (over $200,000)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentCalc = '';
+
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.add('hidden'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Update nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Calculator functions
+        function appendToCalc(value) {
+            currentCalc += value;
+            document.getElementById('calc-display').value = currentCalc;
+        }
+
+        function clearCalc() {
+            currentCalc = '';
+            document.getElementById('calc-display').value = '';
+        }
+
+        function deleteLast() {
+            currentCalc = currentCalc.slice(0, -1);
+            document.getElementById('calc-display').value = currentCalc;
+        }
+
+        function calculate() {
+            try {
+                const result = eval(currentCalc);
+                document.getElementById('calc-display').value = result;
+                currentCalc = result.toString();
+            } catch (error) {
+                document.getElementById('calc-display').value = 'Error';
+                currentCalc = '';
+            }
+        }
+
+        // Compound Interest Calculator
+        function calculateCompoundInterest() {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const rate = parseFloat(document.getElementById('interest-rate').value) / 100;
+            const time = parseFloat(document.getElementById('time-period').value);
+            const frequency = parseFloat(document.getElementById('compound-freq').value);
+            
+            if (isNaN(principal) || isNaN(rate) || isNaN(time) || isNaN(frequency)) {
+                showResult('compound-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const amount = principal * Math.pow(1 + rate / frequency, frequency * time);
+            const interest = amount - principal;
+            
+            const result = `
+                <strong>Final Amount:</strong> ${amount.toFixed(2)}<br>
+                <strong>Interest Earned:</strong> ${interest.toFixed(2)}<br>
+                <strong>Total Return:</strong> ${((interest / principal) * 100).toFixed(2)}%
+            `;
+            
+            showResult('compound-result', result, 'success');
+        }
+
+        // Present Value Calculator
+        function calculatePresentValue() {
+            const futureValue = parseFloat(document.getElementById('future-value').value);
+            const discountRate = parseFloat(document.getElementById('discount-rate').value) / 100;
+            const periods = parseFloat(document.getElementById('periods').value);
+            
+            if (isNaN(futureValue) || isNaN(discountRate) || isNaN(periods)) {
+                showResult('pv-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const presentValue = futureValue / Math.pow(1 + discountRate, periods);
+            const discount = futureValue - presentValue;
+            
+            const result = `
+                <strong>Present Value:</strong> ${presentValue.toFixed(2)}<br>
+                <strong>Discount Amount:</strong> ${discount.toFixed(2)}<br>
+                <strong>Discount Rate:</strong> ${(discountRate * 100).toFixed(2)}%
+            `;
+            
+            showResult('pv-result', result, 'success');
+        }
+
+        // Loan Payment Calculator
+        function calculateLoanPayment() {
+            const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+            const annualRate = parseFloat(document.getElementById('loan-rate').value) / 100;
+            const years = parseFloat(document.getElementById('loan-term').value);
+            
+            if (isNaN(loanAmount) || isNaN(annualRate) || isNaN(years)) {
+                showResult('loan-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const monthlyRate = annualRate / 12;
+            const payments = years * 12;
+            
+            const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, payments)) / (Math.pow(1 + monthlyRate, payments) - 1);
+            const totalPayment = monthlyPayment * payments;
+            const totalInterest = totalPayment - loanAmount;
+            
+            const result = `
+                <strong>Monthly Payment:</strong> ${monthlyPayment.toFixed(2)}<br>
+                <strong>Total Payment:</strong> ${totalPayment.toFixed(2)}<br>
+                <strong>Total Interest:</strong> ${totalInterest.toFixed(2)}<br>
+                <strong>Interest Percentage:</strong> ${((totalInterest / loanAmount) * 100).toFixed(2)}%
+            `;
+            
+            showResult('loan-result', result, 'success');
+        }
+
+        // Liquidity Ratios Calculator
+        function calculateLiquidityRatios() {
+            const currentAssets = parseFloat(document.getElementById('current-assets').value);
+            const currentLiabilities = parseFloat(document.getElementById('current-liabilities').value);
+            const quickAssets = parseFloat(document.getElementById('quick-assets').value);
+            const inventory = parseFloat(document.getElementById('inventory').value);
+            
+            if (isNaN(currentAssets) || isNaN(currentLiabilities) || isNaN(quickAssets) || isNaN(inventory)) {
+                showResult('liquidity-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const currentRatio = currentAssets / currentLiabilities;
+            const quickRatio = (currentAssets - inventory) / currentLiabilities;
+            const workingCapital = currentAssets - currentLiabilities;
+            
+            const result = `
+                <strong>Current Ratio:</strong> ${currentRatio.toFixed(2)} ${getRatioInterpretation(currentRatio, 'current')}<br>
+                <strong>Quick Ratio:</strong> ${quickRatio.toFixed(2)} ${getRatioInterpretation(quickRatio, 'quick')}<br>
+                <strong>Working Capital:</strong> ${workingCapital.toFixed(2)}
+            `;
+            
+            showResult('liquidity-result', result, 'success');
+        }
+
+        // Profitability Ratios Calculator
+        function calculateProfitabilityRatios() {
+            const netIncome = parseFloat(document.getElementById('net-income').value);
+            const revenue = parseFloat(document.getElementById('revenue').value);
+            const totalAssets = parseFloat(document.getElementById('total-assets').value);
+            const shareholdersEquity = parseFloat(document.getElementById('shareholders-equity').value);
+            
+            if (isNaN(netIncome) || isNaN(revenue) || isNaN(totalAssets) || isNaN(shareholdersEquity)) {
+                showResult('profitability-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const profitMargin = (netIncome / revenue) * 100;
+            const roa = (netIncome / totalAssets) * 100;
+            const roe = (netIncome / shareholdersEquity) * 100;
+            
+            const result = `
+                <strong>Profit Margin:</strong> ${profitMargin.toFixed(2)}%<br>
+                <strong>Return on Assets (ROA):</strong> ${roa.toFixed(2)}%<br>
+                <strong>Return on Equity (ROE):</strong> ${roe.toFixed(2)}%
+            `;
+            
+            showResult('profitability-result', result, 'success');
+        }
+
+        // Leverage Ratios Calculator
+        function calculateLeverageRatios() {
+            const totalDebt = parseFloat(document.getElementById('total-debt').value);
+            const totalEquity = parseFloat(document.getElementById('total-equity').value);
+            const totalAssets = parseFloat(document.getElementById('total-assets-leverage').value);
+            const ebit = parseFloat(document.getElementById('ebit').value);
+            const interestExpense = parseFloat(document.getElementById('interest-expense').value);
+            
+            if (isNaN(totalDebt) || isNaN(totalEquity) || isNaN(totalAssets) || isNaN(ebit) || isNaN(interestExpense)) {
+                showResult('leverage-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const debtToEquity = totalDebt / totalEquity;
+            const debtToAssets = totalDebt / totalAssets;
+            const timesInterestEarned = ebit / interestExpense;
+            
+            const result = `
+                <strong>Debt-to-Equity Ratio:</strong> ${debtToEquity.toFixed(2)}<br>
+                <strong>Debt-to-Assets Ratio:</strong> ${debtToAssets.toFixed(2)}<br>
+                <strong>Times Interest Earned:</strong> ${timesInterestEarned.toFixed(2)}
+            `;
+            
+            showResult('leverage-result', result, 'success');
+        }
+
+        // Straight-Line Depreciation
+        function calculateStraightLine() {
+            const assetCost = parseFloat(document.getElementById('asset-cost').value);
+            const salvageValue = parseFloat(document.getElementById('salvage-value').value);
+            const usefulLife = parseFloat(document.getElementById('useful-life').value);
+            
+            if (isNaN(assetCost) || isNaN(salvageValue) || isNaN(usefulLife)) {
+                showResult('straight-line-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const depreciableAmount = assetCost - salvageValue;
+            const annualDepreciation = depreciableAmount / usefulLife;
+            const depreciationRate = (annualDepreciation / assetCost) * 100;
+            
+            const result = `
+                <strong>Annual Depreciation:</strong> ${annualDepreciation.toFixed(2)}<br>
+                <strong>Depreciation Rate:</strong> ${depreciationRate.toFixed(2)}%<br>
+                <strong>Depreciable Amount:</strong> ${depreciableAmount.toFixed(2)}
+            `;
+            
+            showResult('straight-line-result', result, 'success');
+        }
+
+        // Double Declining Balance
+        function calculateDDB() {
+            const assetCost = parseFloat(document.getElementById('ddb-cost').value);
+            const salvageValue = parseFloat(document.getElementById('ddb-salvage').value);
+            const usefulLife = parseFloat(document.getElementById('ddb-life').value);
+            
+            if (isNaN(assetCost) || isNaN(salvageValue) || isNaN(usefulLife)) {
+                showResult('ddb-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const depreciationRate = (2 / usefulLife) * 100;
+            let bookValue = assetCost;
+            let schedule = '<table class="table"><tr><th>Year</th><th>Book Value</th><th>Depreciation</th><th>Ending Value</th></tr>';
+            
+            for (let year = 1; year <= usefulLife; year++) {
+                let depreciation = bookValue * (2 / usefulLife);
+                if (bookValue - depreciation < salvageValue) {
+                    depreciation = bookValue - salvageValue;
+                }
+                const endingValue = bookValue - depreciation;
+                
+                schedule += `<tr><td>${year}</td><td>${bookValue.toFixed(2)}</td><td>${depreciation.toFixed(2)}</td><td>${endingValue.toFixed(2)}</td></tr>`;
+                bookValue = endingValue;
+                
+                if (bookValue <= salvageValue) break;
+            }
+            
+            schedule += '</table>';
+            const result = `<strong>Depreciation Rate:</strong> ${depreciationRate.toFixed(2)}%<br>${schedule}`;
+            
+            showResult('ddb-result', result, 'success');
+        }
+
+        // Sum of Years' Digits
+        function calculateSYD() {
+            const assetCost = parseFloat(document.getElementById('syd-cost').value);
+            const salvageValue = parseFloat(document.getElementById('syd-salvage').value);
+            const usefulLife = parseFloat(document.getElementById('syd-life').value);
+            
+            if (isNaN(assetCost) || isNaN(salvageValue) || isNaN(usefulLife)) {
+                showResult('syd-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const depreciableAmount = assetCost - salvageValue;
+            const sumOfYears = (usefulLife * (usefulLife + 1)) / 2;
+            let schedule = '<table class="table"><tr><th>Year</th><th>Fraction</th><th>Depreciation</th><th>Accumulated</th></tr>';
+            let accumulated = 0;
+            
+            for (let year = 1; year <= usefulLife; year++) {
+                const fraction = (usefulLife - year + 1) / sumOfYears;
+                const depreciation = depreciableAmount * fraction;
+                accumulated += depreciation;
+                
+                schedule += `<tr><td>${year}</td><td>${fraction.toFixed(3)}</td><td>${depreciation.toFixed(2)}</td><td>${accumulated.toFixed(2)}</td></tr>`;
+            }
+            
+            schedule += '</table>';
+            const result = `<strong>Sum of Years:</strong> ${sumOfYears}<br>${schedule}`;
+            
+            showResult('syd-result', result, 'success');
+        }
+
+        // Federal Tax Calculator
+        function calculateFederalTax() {
+            const income = parseFloat(document.getElementById('tax-income').value);
+            const status = document.getElementById('filing-status').value;
+            
+            if (isNaN(income)) {
+                showResult('tax-result', 'Please enter valid income', 'error');
+                return;
+            }
+            
+            const brackets2024 = {
+                single: [
+                    { min: 0, max: 11600, rate: 0.10 },
+                    { min: 11600, max: 47150, rate: 0.12 },
+                    { min: 47150, max: 100525, rate: 0.22 },
+                    { min: 100525, max: 191950, rate: 0.24 },
+                    { min: 191950, max: 243725, rate: 0.32 },
+                    { min: 243725, max: 609350, rate: 0.35 },
+                    { min: 609350, max: Infinity, rate: 0.37 }
+                ],
+                married: [
+                    { min: 0, max: 23200, rate: 0.10 },
+                    { min: 23200, max: 94300, rate: 0.12 },
+                    { min: 94300, max: 201050, rate: 0.22 },
+                    { min: 201050, max: 383900, rate: 0.24 },
+                    { min: 383900, max: 487450, rate: 0.32 },
+                    { min: 487450, max: 731200, rate: 0.35 },
+                    { min: 731200, max: Infinity, rate: 0.37 }
+                ]
+            };
+            
+            const taxBrackets = brackets2024[status] || brackets2024.single;
+            let totalTax = 0;
+            let breakdown = '';
+            
+            for (const bracket of taxBrackets) {
+                if (income > bracket.min) {
+                    const taxableInBracket = Math.min(income, bracket.max) - bracket.min;
+                    const taxForBracket = taxableInBracket * bracket.rate;
+                    totalTax += taxForBracket;
+                    
+                    if (taxableInBracket > 0) {
+                        breakdown += `${(bracket.rate * 100).toFixed(0)}% on ${taxableInBracket.toFixed(2)} = ${taxForBracket.toFixed(2)}<br>`;
+                    }
+                }
+            }
+            
+            const effectiveRate = (totalTax / income) * 100;
+            const afterTaxIncome = income - totalTax;
+            
+            const result = `
+                <strong>Federal Tax Owed:</strong> ${totalTax.toFixed(2)}<br>
+                <strong>Effective Tax Rate:</strong> ${effectiveRate.toFixed(2)}%<br>
+                <strong>After-Tax Income:</strong> ${afterTaxIncome.toFixed(2)}<br>
+                <strong>Tax Breakdown:</strong><br>${breakdown}
+            `;
+            
+            showResult('tax-result', result, 'success');
+        }
+
+        // Payroll Tax Calculator
+        function calculatePayrollTax() {
+            const grossSalary = parseFloat(document.getElementById('gross-salary').value);
+            const payPeriods = parseFloat(document.getElementById('pay-period').value);
+            
+            if (isNaN(grossSalary) || isNaN(payPeriods)) {
+                showResult('payroll-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const grossPerPeriod = grossSalary / payPeriods;
+            const socialSecurityRate = 0.062;
+            const medicareRate = 0.0145;
+            const socialSecurityWageBase = 160200; // 2024 limit
+            
+            let socialSecurityTax = Math.min(grossSalary, socialSecurityWageBase) * socialSecurityRate;
+            let medicareTax = grossSalary * medicareRate;
+            
+            // Additional Medicare tax for high earners
+            if (grossSalary > 200000) {
+                medicareTax += (grossSalary - 200000) * 0.009;
+            }
+            
+            const totalPayrollTax = socialSecurityTax + medicareTax;
+            const netSalary = grossSalary - totalPayrollTax;
+            
+            const result = `
+                <strong>Gross Per Pay Period:</strong> ${grossPerPeriod.toFixed(2)}<br>
+                <strong>Social Security Tax:</strong> ${socialSecurityTax.toFixed(2)} (${(socialSecurityRate * 100).toFixed(2)}%)<br>
+                <strong>Medicare Tax:</strong> ${medicareTax.toFixed(2)} (${(medicareRate * 100).toFixed(2)}%)<br>
+                <strong>Total Payroll Tax:</strong> ${totalPayrollTax.toFixed(2)}<br>
+                <strong>Net Annual Salary:</strong> ${netSalary.toFixed(2)}
+            `;
+            
+            showResult('payroll-result', result, 'success');
+        }
+
+        // Sales Tax Calculator
+        function calculateSalesTax() {
+            const saleAmount = parseFloat(document.getElementById('sale-amount').value);
+            const taxRate = parseFloat(document.getElementById('sales-tax-rate').value) / 100;
+            
+            if (isNaN(saleAmount) || isNaN(taxRate)) {
+                showResult('sales-tax-result', 'Please enter valid numbers', 'error');
+                return;
+            }
+            
+            const salesTax = saleAmount * taxRate;
+            const totalAmount = saleAmount + salesTax;
+            
+            const result = `
+                <strong>Sale Amount:</strong> ${saleAmount.toFixed(2)}<br>
+                <strong>Sales Tax:</strong> ${salesTax.toFixed(2)} (${(taxRate * 100).toFixed(2)}%)<br>
+                <strong>Total Amount:</strong> ${totalAmount.toFixed(2)}
+            `;
+            
+            showResult('sales-tax-result', result, 'success');
+        }
+
+        // Journal Entry Functions
+        function addJournalLine() {
+            const journalEntries = document.getElementById('journal-entries');
+            const newLine = document.createElement('div');
+            newLine.className = 'journal-line';
+            newLine.innerHTML = `
+                <div class="two-column">
+                    <div class="input-group">
+                        <label>Account Name</label>
+                        <input type="text" placeholder="Account name">
+                    </div>
+                    <div class="input-group">
+                        <label>Debit ($)</label>
+                        <input type="number" placeholder="0.00" step="0.01">
+                    </div>
+                </div>
+                <div class="two-column">
+                    <div class="input-group">
+                        <label>Account Name</label>
+                        <input type="text" placeholder="Account name">
+                    </div>
+                    <div class="input-group">
+                        <label>Credit ($)</label>
+                        <input type="number" placeholder="0.00" step="0.01">
+                    </div>
+                </div>
+                <button class="btn btn-secondary" onclick="removeJournalLine(this)">Remove</button>
+            `;
+            journalEntries.appendChild(newLine);
+        }
+
+        function removeJournalLine(button) {
+            button.parentElement.remove();
+        }
+
+        function validateJournalEntry() {
+            const journalLines = document.querySelectorAll('.journal-line');
+            let totalDebits = 0;
+            let totalCredits = 0;
+            let entries = [];
+            
+            journalLines.forEach(line => {
+                const inputs = line.querySelectorAll('input');
+                const debitInput = inputs[1];
+                const creditInput = inputs[3];
+                
+                if (debitInput && debitInput.value) {
+                    const debitAmount = parseFloat(debitInput.value);
+                    if (!isNaN(debitAmount)) {
+                        totalDebits += debitAmount;
+                        entries.push({
+                            account: inputs[0].value,
+                            debit: debitAmount,
+                            credit: 0
+                        });
+                    }
+                }
+                
+                if (creditInput && creditInput.value) {
+                    const creditAmount = parseFloat(creditInput.value);
+                    if (!isNaN(creditAmount)) {
+                        totalCredits += creditAmount;
+                        entries.push({
+                            account: inputs[2].value,
+                            debit: 0,
+                            credit: creditAmount
+                        });
+                    }
+                }
+            });
+            
+            const isBalanced = Math.abs(totalDebits - totalCredits) < 0.01;
+            const date = document.getElementById('journal-date').value;
+            const description = document.getElementById('journal-desc').value;
+            
+            let result = '';
+            if (isBalanced) {
+                result = `
+                    <strong>✓ Journal Entry is Balanced!</strong><br>
+                    <strong>Date:</strong> ${date}<br>
+                    <strong>Description:</strong> ${description}<br>
+                    <strong>Total Debits:</strong> ${totalDebits.toFixed(2)}<br>
+                    <strong>Total Credits:</strong> ${totalCredits.toFixed(2)}
+                `;
+                showResult('journal-result', result, 'success');
+            } else {
+                result = `
+                    <strong>✗ Journal Entry is NOT Balanced!</strong><br>
+                    <strong>Total Debits:</strong> ${totalDebits.toFixed(2)}<br>
+                    <strong>Total Credits:</strong> ${totalCredits.toFixed(2)}<br>
+                    <strong>Difference:</strong> ${Math.abs(totalDebits - totalCredits).toFixed(2)}
+                `;
+                showResult('journal-result', result, 'error');
+            }
+        }
+
+        function loadTemplate(templateType) {
+            const templates = {
+                'cash-sale': {
+                    description: 'Cash sale to customer',
+                    entries: [
+                        { account: 'Cash', debit: 1000, credit: 0 },
+                        { account: 'Sales Revenue', debit: 0, credit: 1000 }
+                    ]
+                },
+                'credit-sale': {
+                    description: 'Credit sale to customer',
+                    entries: [
+                        { account: 'Accounts Receivable', debit: 1500, credit: 0 },
+                        { account: 'Sales Revenue', debit: 0, credit: 1500 }
+                    ]
+                },
+                'purchase': {
+                    description: 'Purchase of inventory',
+                    entries: [
+                        { account: 'Inventory', debit: 2000, credit: 0 },
+                        { account: 'Accounts Payable', debit: 0, credit: 2000 }
+                    ]
+                },
+                'payroll': {
+                    description: 'Employee payroll',
+                    entries: [
+                        { account: 'Salaries Expense', debit: 5000, credit: 0 },
+                        { account: 'Cash', debit: 0, credit: 3800 },
+                        { account: 'Payroll Tax Payable', debit: 0, credit: 1200 }
+                    ]
+                },
+                'depreciation': {
+                    description: 'Monthly depreciation expense',
+                    entries: [
+                        { account: 'Depreciation Expense', debit: 500, credit: 0 },
+                        { account: 'Accumulated Depreciation', debit: 0, credit: 500 }
+                    ]
+                },
+                'loan-payment': {
+                    description: 'Monthly loan payment',
+                    entries: [
+                        { account: 'Interest Expense', debit: 200, credit: 0 },
+                        { account: 'Notes Payable', debit: 800, credit: 0 },
+                        { account: 'Cash', debit: 0, credit: 1000 }
+                    ]
+                }
+            };
+            
+            const template = templates[templateType];
+            if (!template) return;
+            
+            let result = `<strong>${template.description}</strong><br><br>`;
+            result += '<table class="table"><tr><th>Account</th><th>Debit</th><th>Credit</th></tr>';
+            
+            template.entries.forEach(entry => {
+                result += `<tr><td>${entry.account}</td><td>${entry.debit ? '
+
+         + entry.debit.toFixed(2) : ''}</td><td>${entry.credit ? '
+
+         + entry.credit.toFixed(2) : ''}</td></tr>`;
+            });
+            
+            result += '</table>';
+            showResult('template-result', result, 'success');
+        }
+
+        // Utility Functions
+        function showResult(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = message;
+            element.className = `result ${type}`;
+            element.classList.remove('hidden');
+        }
+
+        function getRatioInterpretation(ratio, type) {
+            if (type === 'current') {
+                if (ratio >= 2) return '(Excellent)';
+                if (ratio >= 1.5) return '(Good)';
+                if (ratio >= 1) return '(Acceptable)';
+                return '(Poor)';
+            } else if (type === 'quick') {
+                if (ratio >= 1.5) return '(Excellent)';
+                if (ratio >= 1) return '(Good)';
+                if (ratio >= 0.8) return '(Acceptable)';
+                return '(Poor)';
+            }
+            return '';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current date for journal entry
+            document.getElementById('journal-date').value = new Date().toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>
