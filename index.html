@@ -350,13 +350,12 @@
     </div>
 
     <script>
-        // Fixed start time: 7/17/2025, 12:02:49 PM Central Time
+
         const startTime = new Date('2025-07-17T12:02:49.000-05:00'); // Central Time (CDT)
         
-        // Display the start time
+
         document.getElementById('startTime').textContent = '7/17/2025, 12:02:49 PM';
 
-        // Keep track of previous values for animation
         let previousValues = {
             days: 0,
             hours: 0,
@@ -378,7 +377,6 @@
         function updateClock() {
             const now = new Date();
             
-            // Update current time display with fluid animation
             const currentTimeStr = now.toLocaleTimeString('en-US', {
                 hour12: false,
                 hour: '2-digit',
@@ -386,18 +384,15 @@
                 second: '2-digit'
             });
             document.getElementById('currentTime').textContent = currentTimeStr;
-            
-            // Calculate elapsed time since page load
+
             const elapsed = now - startTime;
-            
-            // Convert to different units
+
             const totalSeconds = Math.floor(elapsed / 1000);
             const days = Math.floor(totalSeconds / (24 * 60 * 60));
             const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
             const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
             const seconds = totalSeconds % 60;
             
-            // Update display with animations
             animateChange('days', days);
             animateChange('hours', hours);
             animateChange('minutes', minutes);
@@ -409,11 +404,9 @@
             document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         }
 
-        // Update immediately and then every second
         updateClock();
         setInterval(updateClock, 1000);
 
-        // Add dynamic background interactions
         document.addEventListener('mousemove', (e) => {
             const x = e.clientX / window.innerWidth;
             const y = e.clientY / window.innerHeight;
@@ -426,7 +419,7 @@
             `;
         });
 
-        // Add touch interactions for mobile
+        //  mobile stuff bahahahahaha
         document.addEventListener('touchstart', (e) => {
             const touch = e.touches[0];
             const x = touch.clientX / window.innerWidth;
@@ -440,7 +433,6 @@
             `;
         });
 
-        // Reset background on touch end
         document.addEventListener('touchend', () => {
             document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
         });
