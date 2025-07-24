@@ -350,11 +350,11 @@
     </div>
 
     <script>
-
-        const startTime = new Date('2025-07-17T12:02:49.000-05:00'); // Central Time (CDT)
+        // Updated to current time: Thursday, July 24, 2025, 11:42 AM
+        const startTime = new Date('2025-07-24T11:42:00.000'); // Current time
         
-
-        document.getElementById('startTime').textContent = '7/17/2025, 12:02:49 PM';
+        // Display the formatted start time
+        document.getElementById('startTime').textContent = '7/24/2025, 11:42:00 AM';
 
         let previousValues = {
             days: 0,
@@ -419,7 +419,7 @@
             `;
         });
 
-        //  mobile stuff bahahahahaha
+        // Mobile touch interactions
         document.addEventListener('touchstart', (e) => {
             const touch = e.touches[0];
             const x = touch.clientX / window.innerWidth;
